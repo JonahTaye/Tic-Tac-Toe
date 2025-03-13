@@ -1,0 +1,90 @@
+The game of tic tac toe works by placing "X" or "O" on a 3 by 3 board
+First one to get a horizontal, vertical or diagonal match wins
+What is needed for the project:
+    * a function that creates the playing board
+        - each box in the board is assigned an object that will hold an empty value to start
+    * a function that handles adding an "X" or "O" value
+    * a function that handles checking if there is a winner
+
+Implementation:
+    - board()
+        * this is a module an IFEE function 
+        * create()
+            - it first creates a 3 by 3 board
+            - define constant variables row = 2, column = 2, board = []
+            - an outer loop that loops through the rows and an inner loop that loops through the column
+            - in the inner loop each board[x][y] will hold a box() function that will handle the values
+        * getBoard()
+            - an arrow function that returns the created board
+        * add()
+            - accepts row and column, palyer's token
+            - if the row or column doesn't exist it returns 
+            - goes to the specified location and checks the value of that box
+                    - if the value is not empty it returns
+                    - else it adds the value using box.addValue()
+
+    - box()
+        * this is a module an IFEE function
+        * a variable that has the initial value which is empty 
+        * addValue()
+            - accepts player token
+            - changes the value to that players token
+        * value()
+            - shows the current value
+    - player()
+        * this is a module an IFEE function
+        * this is an object that has the players name, and token
+        * addPlayer()
+            - updates the values of name and token
+        * token() 
+            - arrow function that returns the players token
+        * name() 
+            - arrow funciton that returns the players name
+    - playGame()
+        * this is a module an IFEE function
+        * first creates the board by calling the board.create()
+        * then get's the full board using board.getBoard()
+        * nRound()
+            - plays through one round 
+            - accepts the row and column
+            - first creates the two players
+                - playerOne = addPlayer("PlayerOne", "X")
+                - playerTwo = addPlayer("PlayerTwo", "O")
+            - define an active player -> activePlayer = playerOne
+            - define hasWon to false
+            - roundsPlayed = 1
+            - while hasWon doesn't return true
+                * add the activePlayer token addValue(row, column, activePlayer.token)
+                * hasWon = checkWinner(row, column, activePlayer)
+                * activePlayer = activePlayer.token == playerOne.token ? playerTwo : playerOne
+                * add one to roundsPlayed
+                * if hasWon is true
+                    - return "activePlayer.name has won"
+                * if roundsPlayed > 10
+                    - return "it was a tie"
+
+                
+
+        * checkWinner()
+            - accepts player, row, and column
+            - a constant direction list that holds the directions to checkin
+                * [0, 1] horizontal
+                * [1, 0] vertical
+                * [1, 1] diagonal right
+                * [1, -1] diagonal left
+            - an loop that goes through the list of directions
+                * initialize match = 1
+            - an inner loop that changes between two signs [1, -1]
+                * the inner loop has three variables x and y 
+                    - x = row + direction[0] * signs
+                    - y = column + direction[1] * signs
+                * while x and y are inside the bound of the board and their values are equal to the players token
+                    - match++
+                    - x+= direction[0] * signs
+                    - y+= direction[1] * signs
+                    - if match == 2 return true
+                * return false 
+
+                    0,0 0,1 0,2
+                    1,0 1,1 1,2
+                    2,0 2,1 2,2
