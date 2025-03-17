@@ -194,12 +194,18 @@ const display = (function () {
     }
 
     const clickFunction = function(event) {
-        clickedCell = event.target.dataset.cellNumber
-        if (!clickedCell) return
-        showGame(clickedCell)
+        if (event.target.tagName === "DIV") {
+            clickedCell = event.target.dataset.cellNumber
+            if (!clickedCell) return
+            showGame(clickedCell)
+        } else {
+            currentPlayer.textContent = ""
+            playGame.resetGame()
+            updateScreen()
+        }
     }
 
     updateScreen()
     boardContainer.addEventListener("click", clickFunction)
-
+    restartBtn.addEventListener("click", clickFunction)
 })()
