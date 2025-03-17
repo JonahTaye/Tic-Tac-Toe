@@ -11,3 +11,18 @@ body {
     display: grid;
     grid-template-rows: 2fr 10fr 1fr;
 }
+
+.game-board {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    /* gap: 2rem; */
+}
+
+.board-container {
+    width: 50%;
+    height: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
