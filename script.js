@@ -18,7 +18,8 @@ const board = (function () {
         let currentBoard = ""
         for (let i = 0; i < row; i++) {
             for (let j = 0; j < column; j++) {
-                currentBoard += `   col${i}${j}: ${xOboard[i][j].value()}`
+                if (xOboard[i][j].value() == "") currentBoard += `   box${i}${j}:  `
+                else currentBoard += `   box${i}${j}: ${xOboard[i][j].value()}`
             }
             currentBoard += "\n"
         }
