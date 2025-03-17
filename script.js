@@ -88,14 +88,14 @@ const playGame = (function () {
         if (!hasWon && roundsPlayed < 10) {
             let tokenSet = board.add(row, column, activePlayer.token())
             hasWon = checkWinner(row, column, activePlayer)
-            
-            if (tokenSet) {
+            board.printBoard()
+
+            if (tokenSet && !hasWon) {
                 activePlayer = activePlayer.token == playerOne.token ? playerTwo : playerOne
                 roundsPlayed++
-                board.printBoard()
             }
             
-            console.log(roundsPlayed)
+
             if (roundsPlayed == 10) return "It was a tie"
             if (hasWon) {
                 return `${activePlayer.name()} has won`
