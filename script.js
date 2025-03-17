@@ -27,12 +27,15 @@ const board = (function () {
     }
 
     const add = function (x, y, player) {
-        if (x < 0 || x >= row || y < 0 || y >= column) return
+        if (x < 0 || x >= row || y < 0 || y >= column) return false
 
         checkPos = xOboard[x][y]
 
-        if (checkPos.value() == "") checkPos.addValue(player)
-        else return
+        if (checkPos.value() == "") {
+            checkPos.addValue(player)
+            return true
+        }
+        else return false
     }
 
     return { create, getBoard, printBoard, add }
@@ -82,14 +85,18 @@ const playGame = (function () {
         
         console.log(activePlayer.name())
         
-        if (!hasWon) {
-            board.add(row, column, activePlayer.token())
+        if (!hasWon && roundsPlayed < 10) {
+            let tokenSet = board.add(row, column, activePlayer.token())
             hasWon = checkWinner(row, column, activePlayer)
-            activePlayer = activePlayer.token == playerOne.token ? playerTwo : playerOne
-            roundsPlayed++
-            board.printBoard()
             
-            if (roundsPlayed > 10) return "It was a tie"
+            if (tokenSet) {
+                activePlayer = activePlayer.token == playerOne.token ? playerTwo : playerOne
+                roundsPlayed++
+                board.printBoard()
+            }
+            
+            console.log(roundsPlayed)
+            if (roundsPlayed == 10) return "It was a tie"
             if (hasWon) {
                 return `${activePlayer.name()} has won`
             }
