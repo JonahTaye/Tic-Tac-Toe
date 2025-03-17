@@ -75,15 +75,14 @@ const playGame = (function () {
     playerTwo.addPlayer("Player-Two", "O")
 
     let activePlayer = playerOne
+    let roundsPlayed = 1
+    let hasWon = false
 
     const nRound = function (row, column) {
         
-        console.log(playerOne.name())
+        console.log(activePlayer.name())
         
-        let roundsPlayed = 1
-        let hasWon = true
-
-        if (hasWon) {
+        if (!hasWon) {
             board.add(row, column, activePlayer.token())
             hasWon = checkWinner(row, column, activePlayer)
             activePlayer = activePlayer.token == playerOne.token ? playerTwo : playerOne
@@ -91,9 +90,12 @@ const playGame = (function () {
             board.printBoard()
             
             if (roundsPlayed > 10) return "It was a tie"
+            if (hasWon) {
+                return `${activePlayer.name()} has won`
+            }
         }
-
-        if (hasWon) return `${activePlayer.name()} has won`
+    
+        
     }
 
     const checkWinner = function (row, column, player) {
@@ -106,19 +108,23 @@ const playGame = (function () {
 
         for (const [dirX, dirY] of directions) {
             let match = 1
+            const currentBoard = board.getBoard()
+            const boardRow = 2
+            const boardColumn = 2
             
             for(const leftRight of [1, -1]) {
                 let x = row + dirX * leftRight
                 let y = column + dirY * leftRight
-
-                while(x <= row && row <= x 
-                    && y <= column && column <= y 
-                    && board[x][y].value() == player.token()) {
+                
+                
+                while(x <= boardRow && x >= 0 
+                    && y <= boardColumn && y >= 0
+                    && currentBoard[x][y].value() === player.token()) {
                         match++
-                        x += dirx * leftRight
+                        x += dirX * leftRight
                         y += dirY * leftRight
-
-                        if (match == 2) return true
+                        
+                        if (match == 3) return true
                 }
             }
         }
