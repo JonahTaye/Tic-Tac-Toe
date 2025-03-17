@@ -150,7 +150,14 @@ const playGame = (function () {
         return false
     }
 
-    return {nRound, playerOne, playerTwo, getActivePlayer}
+    const resetGame = function() {
+        activePlayer = playerOne
+        roundsPlayed = 1
+        hasWon = false
+        board.resetBoard()
+    }
+
+    return {nRound, playerOne, playerTwo, getActivePlayer, resetGame}
 })()
 
 const display = (function () {
