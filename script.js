@@ -39,7 +39,15 @@ const board = (function () {
         else return false
     }
 
-    return { create, getBoard, printBoard, add }
+    const resetBoard = function() {
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < column; j++) {
+                xOboard[i][j].addValue("")
+            }
+        }
+    }
+
+    return { create, getBoard, printBoard, add, resetBoard }
 })()
 
 const box = function () {
