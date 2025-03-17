@@ -27,7 +27,7 @@ const board = (function () {
     }
 
     const add = function (x, y, player) {
-        if (x <= row && row <= x && y <= column && column <= y) return
+        if (x < 0 || x >= row || y < 0 || y >= column) return
 
         checkPos = xOboard[x][y]
 
