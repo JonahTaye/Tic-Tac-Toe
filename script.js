@@ -142,3 +142,47 @@ const playGame = (function () {
 
     return {nRound, playerOne, playerTwo}
 })()
+
+const display = (function () {
+    const currentPlayer = document.querySelector(".current-player")
+    const boardContainer = document.querySelector(".board-container")
+    const restartBtn = document.querySelector("button")
+    const dialogBox = document.querySelector("dialog")
+    
+    const updateScreen = function() {
+        boardContainer.textContent = ""
+
+        gameBoard = board.getBoard()
+
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                const displayBox = document.createElement("div")
+                displayBox.classList.add("box")
+                displayBox.dataset.cellNumber = `${i}-${j}`
+                displayBox.textContent = `${gameBoard[i][j].value()}`
+                boardContainer.appendChild(displayBox)
+            }
+        }
+    }
+
+    const showGame = function(cell) {
+        let [row, column] = cell.split("-")
+        result = playGame.nRound(Number(row), Number(column))
+
+        if (result) {
+            console.log(result)
+            currentPlayer.textContent = result
+        }
+        updateScreen()
+    }
+
+    const clickFunction = function(event) {
+        clickedCell = event.target.dataset.cellNumber
+        if (!clickedCell) return
+        showGame(clickedCell)
+    }
+
+    updateScreen()
+    boardContainer.addEventListener("click", clickFunction)
+
+})()
