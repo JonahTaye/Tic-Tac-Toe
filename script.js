@@ -82,6 +82,8 @@ const playGame = (function () {
     let roundsPlayed = 1
     let hasWon = false
 
+    const getActivePlayer = () => activePlayer.name()
+
     const nRound = function (row, column) {
         
         console.log(activePlayer.name())
@@ -140,7 +142,7 @@ const playGame = (function () {
         return false
     }
 
-    return {nRound, playerOne, playerTwo}
+    return {nRound, playerOne, playerTwo, getActivePlayer}
 })()
 
 const display = (function () {
