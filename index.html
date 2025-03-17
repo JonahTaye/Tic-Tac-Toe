@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,34 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
+
 <body>
     <div class="header">This is a game of XO</div>
     <div class="game-board">
         <div class="current-player"></div>
         <div class="board-container"></div>
-        <button>Restart</button>
-        <dialog></dialog>
+        <div class="buttons">
+            <button>Restart</button>
+            <button>Add Player</button>
+        </div>
+        <dialog class="change-player">
+            <form method="dialog">
+                <input type="text" name="name" id="name">
+                <div class="choose-token">
+                    <div class="token-x">
+                        <label for="token">X</label>
+                        <input type="radio" name="token" id="token">
+                    </div>
+                    <div class="token-o">
+                        <label for="token">O</label>
+                        <input type="radio" name="token" id="token">
+                    </div>
+                </div>
+                <button class="add-player" type="submit">Save</button>
+            </form>
+        </dialog>
     </div>
     <div class="footer">All rights reserved</div>
 </body>
+
 </html>
