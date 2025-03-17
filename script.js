@@ -140,5 +140,5 @@ const playGame = (function () {
         return false
     }
 
-    return {nRound}
+    return {nRound, playerOne, playerTwo}
 })()
