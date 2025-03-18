@@ -164,7 +164,8 @@ const display = (function () {
     const currentPlayer = document.querySelector(".current-player")
     const boardContainer = document.querySelector(".board-container")
     const restartBtn = document.querySelector(".restart")
-    const addPlayerBtn = document.querySelector(".add-player")
+    const firstPlayer = document.querySelector(".player-one")
+    const secondPlayer = document.querySelector(".player-two")
     const dialogBox = document.querySelector("dialog")
     
     const updateScreen = function() {
@@ -203,13 +204,17 @@ const display = (function () {
             currentPlayer.textContent = ""
             playGame.resetGame()
             updateScreen()
-        } else if (event.target.className === "add-player") {
+        } else if (event.target.closest(".player-container")) {
             dialogBox.showModal()
+            let player = event.target.closest(".player-container")
+            let input = dialogBox.querySelector("#name")
+            input.value = player.querySelector(".name").textContent
         }
     }
 
     updateScreen()
     boardContainer.addEventListener("click", clickFunction)
     restartBtn.addEventListener("click", clickFunction)
-    addPlayerBtn.addEventListener("click", clickFunction)
+    firstPlayer.addEventListener("click", clickFunction)
+    secondPlayer.addEventListener("click", clickFunction)
 })()
