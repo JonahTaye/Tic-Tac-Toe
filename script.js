@@ -236,7 +236,7 @@ const playerHandler = (function () {
         return { setName, getName}
     })()
 
-    const changeName = function(newName, token) {
+    const changeName = function(newName) {
         console.log(currentPlayer.getName())
         if(playerOne.name() === currentPlayer.getName()) {
             playerOne.addPlayer(newName, "X")
@@ -247,8 +247,6 @@ const playerHandler = (function () {
 
     const submitForm = function() {
         let name = form.querySelector("#name").value
-        let token = form.querySelector("input[name='token']:checked").value
-        
         changeName(name, token)
     }
 
