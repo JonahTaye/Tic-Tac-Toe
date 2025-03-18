@@ -88,3 +88,29 @@ Implementation:
                     0,0 0,1 0,2
                     1,0 1,1 1,2
                     2,0 2,1 2,2
+
+    - display()
+        * The UI should look like as follows:
+            - A header that says welcome or something fun at the top
+            - The main content
+                * it should have three divs 
+                    - one on the left that displays one player
+                        * both players will have their name shown and then their token of choice
+                        * Mark  John
+                            X     O
+                        * A change in background color to show who's turn it is
+                    - middle has the the board, restart button, addplayer button, A score card at the top
+                        * The round being played
+                        * the restart button starts a new game
+                        * the add player button adds new player
+                            - it opens a dialog box
+                            - it accepts the name of the player
+                            - it let's the player choose to be x or O
+                                * if the player is the first player they can choose which ever
+                                * else the choice is not shown
+                        * the board shows the game
+                            - it changes the background color of the boxes that have the winning line
+                    - one on the right that displays the second player
+                        * same as what was done on the left
+                *
+            - The footer
