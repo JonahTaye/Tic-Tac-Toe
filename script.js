@@ -164,10 +164,7 @@ const display = (function () {
     const currentPlayer = document.querySelector(".current-player")
     const boardContainer = document.querySelector(".board-container")
     const restartBtn = document.querySelector(".restart")
-    const firstPlayer = document.querySelector(".player-one")
-    const secondPlayer = document.querySelector(".player-two")
-    const dialogBox = document.querySelector("dialog")
-    
+
     const updateScreen = function() {
         boardContainer.textContent = ""
 
@@ -204,17 +201,70 @@ const display = (function () {
             currentPlayer.textContent = ""
             playGame.resetGame()
             updateScreen()
-        } else if (event.target.closest(".player-container")) {
-            dialogBox.showModal()
-            let player = event.target.closest(".player-container")
-            let input = dialogBox.querySelector("#name")
-            input.value = player.querySelector(".name").textContent
         }
     }
 
     updateScreen()
     boardContainer.addEventListener("click", clickFunction)
     restartBtn.addEventListener("click", clickFunction)
+})()
+
+const playerHandler = (function () {
+    const firstPlayer = document.querySelector(".player-one")
+    const secondPlayer = document.querySelector(".player-two")
+    const playerOneName = firstPlayer.querySelector(".name")
+    const playerTwoName = secondPlayer.querySelector(".name")
+    const dialogBox = document.querySelector("dialog")
+    const form = document.querySelector("form")
+
+    let playerOne = playGame.playerOne
+    let playerTwo = playGame.playerTwo
+
+    const setPlayer = function() {
+        playerOneName.textContent = playerOne.name()
+        playerTwoName.textContent = playerTwo.name()
+    }
+
+    const currentPlayer = (function() {
+        let currentPlayerName = "name"
+        const setName = function(name) {
+            currentPlayerName = name
+            console.log(currentPlayerName)
+        }
+        const getName = () => currentPlayerName
+
+        return { setName, getName}
+    })()
+
+    const changeName = function(newName, token) {
+        console.log(currentPlayer.getName())
+        if(playerOne.name() === currentPlayer.getName()) {
+            playerOne.addPlayer(newName, "X")
+        } else playerTwo.addPlayer(newName, "O")
+
+        setPlayer()
+    }
+
+    const submitForm = function() {
+        let name = form.querySelector("#name").value
+        let token = form.querySelector("input[name='token']:checked").value
+        
+        changeName(name, token)
+    }
+
+    const clickFunction = function(event) {
+        if (event.target.closest(".player-container")) {
+            dialogBox.showModal()
+            let player = event.target.closest(".player-container")
+            
+            let input = dialogBox.querySelector("#name")
+            input.value = player.querySelector(".name").textContent
+            
+            currentPlayer.setName(input.value)
+        }
+    }
+    setPlayer()
     firstPlayer.addEventListener("click", clickFunction)
     secondPlayer.addEventListener("click", clickFunction)
+    form.addEventListener("submit", submitForm)
 })()
