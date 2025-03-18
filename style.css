@@ -33,6 +33,7 @@ body {
     justify-self: center;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
 }
 
 .player-one, .player-two {
