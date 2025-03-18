@@ -15,11 +15,29 @@ body {
 .game-board {
     display: grid;
     grid-auto-flow: column;
+    grid-template-columns: 1fr 2fr 1fr;
+    padding: 2rem;
+}
+
+.game-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .board-container {
-    width: 50%;
-    height: 50%;
+    width: 80%;
+    height: 80%;
+    justify-self: center;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+.player-one, .player-two {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
