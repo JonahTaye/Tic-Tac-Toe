@@ -37,8 +37,19 @@ body {
 
 .player-one, .player-two {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-container {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
+    text-align: center;
 }
