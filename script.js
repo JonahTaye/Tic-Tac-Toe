@@ -247,7 +247,7 @@ const playerHandler = (function () {
 
     const submitForm = function() {
         let name = form.querySelector("#name").value
-        changeName(name, token)
+        changeName(name)
     }
 
     const clickFunction = function(event) {
