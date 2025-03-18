@@ -163,7 +163,8 @@ const playGame = (function () {
 const display = (function () {
     const currentPlayer = document.querySelector(".current-player")
     const boardContainer = document.querySelector(".board-container")
-    const restartBtn = document.querySelector("button")
+    const restartBtn = document.querySelector(".restart")
+    const addPlayerBtn = document.querySelector(".add-player")
     const dialogBox = document.querySelector("dialog")
     
     const updateScreen = function() {
@@ -194,18 +195,21 @@ const display = (function () {
     }
 
     const clickFunction = function(event) {
-        if (event.target.tagName === "DIV") {
+        if (event.target.className === "box") {
             clickedCell = event.target.dataset.cellNumber
             if (!clickedCell) return
             showGame(clickedCell)
-        } else {
+        } else if (event.target.className === "restart") {
             currentPlayer.textContent = ""
             playGame.resetGame()
             updateScreen()
+        } else if (event.target.className === "add-player") {
+            dialogBox.showModal()
         }
     }
 
     updateScreen()
     boardContainer.addEventListener("click", clickFunction)
     restartBtn.addEventListener("click", clickFunction)
+    addPlayerBtn.addEventListener("click", clickFunction)
 })()
