@@ -12,13 +12,17 @@
 <body>
     <div class="header">This is a game of XO</div>
     <div class="game-board">
-        <div class="current-player"></div>
-        <div class="board-container"></div>
-        <div class="buttons">
-            <button>Restart</button>
-            <button>Add Player</button>
+        <div class="player-one"></div>
+        <div class="game-content">
+            <div class="current-player"></div>
+            <div class="board-container"></div>
+            <div class="buttons">
+                <button>Restart</button>
+                <button>Add Player</button>
+            </div>
         </div>
-        <dialog class="change-player">
+        <div class="player-two"></div>
+        <dialog class="add-player">
             <form method="dialog">
                 <input type="text" name="name" id="name">
                 <div class="choose-token">
