@@ -189,6 +189,7 @@ const display = (function () {
             console.log(result)
             currentPlayer.textContent = result
         }
+        
         updateScreen()
     }
 
@@ -200,6 +201,7 @@ const display = (function () {
         } else if (event.target.className === "restart") {
             currentPlayer.textContent = ""
             playGame.resetGame()
+            score.resetScore()
             updateScreen()
         }
     }
@@ -265,4 +267,33 @@ const playerHandler = (function () {
     firstPlayer.addEventListener("click", clickFunction)
     secondPlayer.addEventListener("click", clickFunction)
     form.addEventListener("submit", submitForm)
+})()
+
+const score = (function() {
+    const firstPlayer = document.querySelector(".player-one")
+    const secondPlayer = document.querySelector(".player-two")
+
+    let firstPlayerScore = 0
+    let secondPlayerScore = 0
+    const updateScore = function(gameResult) {
+        if(gameResult.includes(playGame.playerOne.name())) {
+            firstPlayerScore ++
+            let scoreCard = firstPlayer.querySelector(".wins")
+            scoreCard.textContent = firstPlayerScore
+        } else if(gameResult.includes(playGame.playerTwo.name())) {
+            secondPlayerScore ++
+            let scoreCard = secondPlayer.querySelector(".wins")
+            scoreCard.textContent = secondPlayerScore
+        }
+    }
+
+    const resetScore = function() {
+        firstPlayerScore = 0
+        secondPlayerScore = 0
+        firstPlayer.querySelector(".wins").textContent = 0
+        secondPlayer.querySelector(".wins").textContent = 0
+    }
+
+
+    return {updateScore, resetScore}
 })()
