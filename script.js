@@ -188,6 +188,11 @@ const display = (function () {
         if (result) {
             console.log(result)
             currentPlayer.textContent = result
+            score.updateScore(result)
+            setTimeout(() => {
+                playGame.resetGame()
+                updateScreen()
+              }, 1000);
         }
         
         updateScreen()
