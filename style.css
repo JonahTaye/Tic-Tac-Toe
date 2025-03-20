@@ -29,7 +29,7 @@ body {
 .game-board {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, 1fr);
     padding: 1vw 3vw;
 }
 
@@ -52,6 +52,7 @@ body {
 }
 
 .player-one, .player-two {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,10 +68,30 @@ body {
 }
 
 .player-container {
-    display: flex;
-    flex-direction: column;
+    width: max(4rem, 70%);
+    height: 50%;
+    display: grid;
     gap: 1rem;
-    text-align: center;
+    padding: 0.5vw;
+    border: 0.2rem black solid;
+    border-radius: 0.3rem;
+}
+
+.name, .token, .wins {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: max(1rem, 4vw);
+}
+
+.name {
+    font-size: max(1rem, 2.5vw);
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+.token, .wins {
+    font-weight: 500;
 }
 
 .game-round {
@@ -90,3 +111,4 @@ body {
     border: 0.2rem white solid;
     outline: 0.1rem black solid;
 }
+
