@@ -14,7 +14,7 @@ const board = (function () {
 
     const getBoard = () => xOboard
 
-    const printBoard = function() {
+    const printBoard = function () {
         let currentBoard = ""
         for (let i = 0; i < row; i++) {
             for (let j = 0; j < column; j++) {
@@ -39,7 +39,7 @@ const board = (function () {
         else return false
     }
 
-    const resetBoard = function() {
+    const resetBoard = function () {
         for (let i = 0; i < row; i++) {
             for (let j = 0; j < column; j++) {
                 xOboard[i][j].addValue("")
@@ -89,13 +89,15 @@ const playGame = (function () {
     let activePlayer = playerOne
     let roundsPlayed = 1
     let hasWon = false
+    let matchedBox = []
 
     const getActivePlayer = () => activePlayer.name()
+    const getMatchedBox = () => matchedBox
 
     const nRound = function (row, column) {
-        
+
         console.log(activePlayer.name())
-        
+
         if (!hasWon && roundsPlayed < 10) {
             let tokenSet = board.add(row, column, activePlayer.token())
             hasWon = checkWinner(row, column, activePlayer)
@@ -105,15 +107,15 @@ const playGame = (function () {
                 activePlayer = activePlayer.token == playerOne.token ? playerTwo : playerOne
                 roundsPlayed++
             }
-            
+
 
             if (roundsPlayed == 10) return "It was a tie"
             if (hasWon) {
                 return `${activePlayer.name()} has won`
             }
         }
-    
-        
+
+
     }
 
     const checkWinner = function (row, column, player) {
@@ -129,20 +131,21 @@ const playGame = (function () {
             const currentBoard = board.getBoard()
             const boardRow = 2
             const boardColumn = 2
-            
-            for(const leftRight of [1, -1]) {
+            matchedBox = [`${row},${column}`]
+
+            for (const leftRight of [1, -1]) {
                 let x = row + dirX * leftRight
                 let y = column + dirY * leftRight
-                
-                
-                while(x <= boardRow && x >= 0 
+
+                while (x <= boardRow && x >= 0
                     && y <= boardColumn && y >= 0
                     && currentBoard[x][y].value() === player.token()) {
-                        match++
-                        x += dirX * leftRight
-                        y += dirY * leftRight
-                        
-                        if (match == 3) return true
+                    matchedBox.push(`${x},${y}`)
+                    match++
+                    x += dirX * leftRight
+                    y += dirY * leftRight
+                    
+                    if (match == 3) return true
                 }
             }
         }
@@ -150,25 +153,25 @@ const playGame = (function () {
         return false
     }
 
-    const resetGame = function() {
+    const resetGame = function () {
         activePlayer = playerOne
         roundsPlayed = 1
         hasWon = false
         board.resetBoard()
     }
-
-    return {nRound, playerOne, playerTwo, getActivePlayer, resetGame}
+    
+    return { nRound, playerOne, playerTwo, getMatchedBox, getActivePlayer, resetGame }
 })()
 
 const display = (function () {
     const displayGameRound = document.querySelector(".game-round")
     const boardContainer = document.querySelector(".board-container")
     const restartBtn = document.querySelector(".restart")
-    
+
     let gameRound = 1
     displayGameRound.textContent = `Let the games begin`
 
-    const updateScreen = function() {
+    const updateScreen = function () {
         boardContainer.textContent = ""
         gameBoard = board.getBoard()
 
@@ -183,35 +186,50 @@ const display = (function () {
         }
     }
 
-    const showGame = function(cell) {
+    const showGame = function (cell) {
         let [row, column] = cell.split("-")
         result = playGame.nRound(Number(row), Number(column))
-        
-        displayGameRound.textContent = `Round ${gameRound}`
 
+        displayGameRound.textContent = `Round ${gameRound}`
+        
         if (result) {
             console.log(result)
             displayGameRound.textContent = result
             score.updateScore(result)
+    
             setTimeout(() => {
                 resetDisplay()
-              }, 1000);
-
+            }, 1000);
+            
             gameRound++
         }
-        
+
         updateScreen()
         playerHandler.showActivePlayer()
+        showWinLine()
     }
 
-    const resetDisplay = function() {
+    const showWinLine = function () {
+        let matchedBox = playGame.getMatchedBox()
+        
+        if (matchedBox.length > 2) {
+            for (let box of matchedBox) {
+                let [row, column] = box.split(",")
+                let boxDisplay = boardContainer.querySelector(`[data-cell-number="${row}-${column}"]`)
+                
+                boxDisplay.style.backgroundColor = "green"
+            }
+        }
+    }
+
+    const resetDisplay = function () {
         displayGameRound.textContent = `Round ${gameRound}`
         playGame.resetGame()
         updateScreen()
         playerHandler.showActivePlayer()
     }
 
-    const clickFunction = function(event) {
+    const clickFunction = function (event) {
         if (event.target.className === "box") {
             clickedCell = event.target.dataset.cellNumber
             if (!clickedCell) return
@@ -226,8 +244,6 @@ const display = (function () {
     updateScreen()
     boardContainer.addEventListener("click", clickFunction)
     restartBtn.addEventListener("click", clickFunction)
-
-    return {resetDisplay}
 })()
 
 const playerHandler = (function () {
@@ -241,91 +257,91 @@ const playerHandler = (function () {
     let playerOne = playGame.playerOne
     let playerTwo = playGame.playerTwo
 
-    const setPlayer = function() {
+    const setPlayer = function () {
         playerOneName.textContent = playerOne.name()
         playerTwoName.textContent = playerTwo.name()
     }
 
-    const currentPlayer = (function() {
+    const currentPlayer = (function () {
         let currentPlayerName = "name"
-        const setName = function(name) {
+        const setName = function (name) {
             currentPlayerName = name
             console.log(currentPlayerName)
         }
         const getName = () => currentPlayerName
 
-        return { setName, getName}
+        return { setName, getName }
     })()
 
-    const changeName = function(newName) {
+    const changeName = function (newName) {
         console.log(currentPlayer.getName())
-        if(playerOne.name() === currentPlayer.getName()) {
+        if (playerOne.name() === currentPlayer.getName()) {
             playerOne.addPlayer(newName, "X")
         } else playerTwo.addPlayer(newName, "O")
 
         setPlayer()
     }
 
-    const showActivePlayer = function() {
+    const showActivePlayer = function () {
         let playerOneName = firstPlayer.querySelector(".name").textContent
         let playerTwoName = secondPlayer.querySelector(".name").textContent
 
         const playerOneBackground = firstPlayer.querySelector(".player-container")
         const playerTwoBackground = secondPlayer.querySelector(".player-container")
-        if(playerOneName === playGame.getActivePlayer()) {  
+        if (playerOneName === playGame.getActivePlayer()) {
             playerOneBackground.style.backgroundColor = "green"
             playerTwoBackground.style.backgroundColor = ""
-        } else if(playerTwoName === playGame.getActivePlayer()) {
+        } else if (playerTwoName === playGame.getActivePlayer()) {
             playerTwoBackground.style.backgroundColor = "green"
             playerOneBackground.style.backgroundColor = ""
         }
     }
 
-    const submitForm = function() {
+    const submitForm = function () {
         let name = form.querySelector("#name").value
         changeName(name)
     }
 
-    const clickFunction = function(event) {
+    const clickFunction = function (event) {
         if (event.target.closest(".player-container")) {
             dialogBox.showModal()
             let player = event.target.closest(".player-container")
-            
+
             let input = dialogBox.querySelector("#name")
             input.value = player.querySelector(".name").textContent
-            
+
             currentPlayer.setName(input.value)
         }
     }
-    
+
     setPlayer()
     showActivePlayer()
     firstPlayer.addEventListener("click", clickFunction)
     secondPlayer.addEventListener("click", clickFunction)
     form.addEventListener("submit", submitForm)
 
-    return {showActivePlayer}
+    return { showActivePlayer }
 })()
 
-const score = (function() {
+const score = (function () {
     const firstPlayer = document.querySelector(".player-one")
     const secondPlayer = document.querySelector(".player-two")
 
     let firstPlayerScore = 0
     let secondPlayerScore = 0
-    const updateScore = function(gameResult) {
-        if(gameResult.includes(playGame.playerOne.name())) {
-            firstPlayerScore ++
+    const updateScore = function (gameResult) {
+        if (gameResult.includes(playGame.playerOne.name())) {
+            firstPlayerScore++
             let scoreCard = firstPlayer.querySelector(".wins")
             scoreCard.textContent = firstPlayerScore
-        } else if(gameResult.includes(playGame.playerTwo.name())) {
-            secondPlayerScore ++
+        } else if (gameResult.includes(playGame.playerTwo.name())) {
+            secondPlayerScore++
             let scoreCard = secondPlayer.querySelector(".wins")
             scoreCard.textContent = secondPlayerScore
         }
     }
 
-    const resetScore = function() {
+    const resetScore = function () {
         firstPlayerScore = 0
         secondPlayerScore = 0
         firstPlayer.querySelector(".wins").textContent = 0
@@ -333,5 +349,5 @@ const score = (function() {
     }
 
 
-    return {updateScore, resetScore}
+    return { updateScore, resetScore }
 })()
