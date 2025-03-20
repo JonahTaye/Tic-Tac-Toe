@@ -190,12 +190,19 @@ const display = (function () {
             currentPlayer.textContent = result
             score.updateScore(result)
             setTimeout(() => {
-                playGame.resetGame()
-                updateScreen()
+                resetDisplay()
               }, 1000);
         }
         
         updateScreen()
+        playerHandler.showActivePlayer()
+    }
+
+    const resetDisplay = function() {
+        currentPlayer.textContent = ""
+        playGame.resetGame()
+        updateScreen()
+        playerHandler.showActivePlayer()
     }
 
     const clickFunction = function(event) {
@@ -204,10 +211,8 @@ const display = (function () {
             if (!clickedCell) return
             showGame(clickedCell)
         } else if (event.target.className === "restart") {
-            currentPlayer.textContent = ""
-            playGame.resetGame()
+            resetDisplay()
             score.resetScore()
-            updateScreen()
         }
     }
 
@@ -252,6 +257,21 @@ const playerHandler = (function () {
         setPlayer()
     }
 
+    const showActivePlayer = function() {
+        let playerOneName = firstPlayer.querySelector(".name").textContent
+        let playerTwoName = secondPlayer.querySelector(".name").textContent
+
+        const playerOneBackground = firstPlayer.querySelector(".player-container")
+        const playerTwoBackground = secondPlayer.querySelector(".player-container")
+        if(playerOneName === playGame.getActivePlayer()) {  
+            playerOneBackground.style.backgroundColor = "green"
+            playerTwoBackground.style.backgroundColor = ""
+        } else if(playerTwoName === playGame.getActivePlayer()) {
+            playerTwoBackground.style.backgroundColor = "green"
+            playerOneBackground.style.backgroundColor = ""
+        }
+    }
+
     const submitForm = function() {
         let name = form.querySelector("#name").value
         changeName(name)
@@ -268,10 +288,14 @@ const playerHandler = (function () {
             currentPlayer.setName(input.value)
         }
     }
+    
     setPlayer()
+    showActivePlayer()
     firstPlayer.addEventListener("click", clickFunction)
     secondPlayer.addEventListener("click", clickFunction)
     form.addEventListener("submit", submitForm)
+
+    return {showActivePlayer}
 })()
 
 const score = (function() {
