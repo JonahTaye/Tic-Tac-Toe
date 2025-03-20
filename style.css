@@ -42,8 +42,8 @@ body {
 }
 
 .board-container {
-    width: clamp(10rem, 30vw, 50vw);
-    height: clamp(10rem, 30vw, 50vw);
+    width: clamp(10rem, 25vw, 50vw);
+    height: clamp(10rem, 25vw, 50vw);
     justify-self: center;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -71,4 +71,13 @@ body {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+}
+
+.game-round {
+    font-size: clamp(1.2rem, 1.5vw, 3rem);
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    border: 0.2rem white solid;
+    outline: 0.1rem black solid;
 }
