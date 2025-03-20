@@ -202,7 +202,7 @@ const display = (function () {
             }, 1000);
             
             gameRound++
-        }
+        } else  bot.playBot()
 
         updateScreen()
         playerHandler.showActivePlayer()
@@ -244,6 +244,8 @@ const display = (function () {
     updateScreen()
     boardContainer.addEventListener("click", clickFunction)
     restartBtn.addEventListener("click", clickFunction)
+
+    return {resetDisplay}
 })()
 
 const playerHandler = (function () {
@@ -274,11 +276,13 @@ const playerHandler = (function () {
     })()
 
     const changeName = function (newName) {
-        console.log(currentPlayer.getName())
-        if (playerOne.name() === currentPlayer.getName()) {
-            playerOne.addPlayer(newName, "X")
-        } else playerTwo.addPlayer(newName, "O")
-
+        if (bot.getBotStatus()) {
+            playerTwo.addPlayer(newName, "O")
+        } else {
+            if (playerOne.name() === currentPlayer.getName()) {
+                playerOne.addPlayer(newName, "X")
+            } else playerTwo.addPlayer(newName, "O")
+        }
         setPlayer()
     }
 
@@ -320,7 +324,7 @@ const playerHandler = (function () {
     secondPlayer.addEventListener("click", clickFunction)
     form.addEventListener("submit", submitForm)
 
-    return { showActivePlayer }
+    return { showActivePlayer, changeName }
 })()
 
 const score = (function () {
@@ -350,4 +354,57 @@ const score = (function () {
 
 
     return { updateScore, resetScore }
+})()
+
+const bot = (function() {
+    const botBtn = document.querySelector(".play-bot")
+    const playFriendBtn = document.querySelector(".play-friend")
+
+    let botStatus = false
+
+    const getEmptyBox = function() {
+        const gameBoard = board.getBoard()
+        emptyBox = []
+
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (gameBoard[i][j].value() === "") {
+                    emptyBox.push(`${i},${j}`)
+                }
+            }
+        }
+
+        return emptyBox[Math.floor(Math.random() * emptyBox.length)]
+    }
+
+    const playBot = function() {
+        randomBox = getEmptyBox()
+        let [row, column] = randomBox.split(",")
+        console.log(randomBox)
+        console.log(row, column)
+        playGame.nRound(Number(row), Number(column))
+    }
+
+    const changeBotStatus = () => botStatus = botStatus == false ? true : false
+
+    const getBotStatus = () => botStatus
+
+    function clickFunction(event) {
+        if (event.target.className == "play-bot") {
+            changeBotStatus()
+            playerHandler.changeName("Bot")
+            display.resetDisplay()
+            score.resetScore()
+        } else if (event.target.className == "play-friend") {
+            playerHandler.changeName("Player-Two")
+            changeBotStatus()
+            display.resetDisplay()
+            score.resetScore()
+        }
+    }
+
+    botBtn.addEventListener("click", clickFunction)
+    playFriendBtn.addEventListener("click", clickFunction)
+    
+    return {getBotStatus, playBot}
 })()
