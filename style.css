@@ -38,7 +38,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .board-container {
@@ -78,6 +78,15 @@ body {
     font-weight: 600;
     padding: 0.5rem;
     border-radius: 0.4rem;
+    border: 0.2rem white solid;
+    outline: 0.1rem black solid;
+}
+
+.restart {
+    font-size: clamp(1.2rem, 1.5vw, 3rem);
+    font-weight: 700;
+    padding: 0.2rem 1.5rem;
+    border-radius: 0.3rem;
     border: 0.2rem white solid;
     outline: 0.1rem black solid;
 }
