@@ -161,13 +161,15 @@ const playGame = (function () {
 })()
 
 const display = (function () {
-    const currentPlayer = document.querySelector(".current-player")
+    const displayGameRound = document.querySelector(".game-round")
     const boardContainer = document.querySelector(".board-container")
     const restartBtn = document.querySelector(".restart")
+    
+    let gameRound = 1
+    displayGameRound.textContent = `Let the games begin`
 
     const updateScreen = function() {
         boardContainer.textContent = ""
-
         gameBoard = board.getBoard()
 
         for (let i = 0; i < 3; i++) {
@@ -184,14 +186,18 @@ const display = (function () {
     const showGame = function(cell) {
         let [row, column] = cell.split("-")
         result = playGame.nRound(Number(row), Number(column))
+        
+        displayGameRound.textContent = `Round ${gameRound}`
 
         if (result) {
             console.log(result)
-            currentPlayer.textContent = result
+            displayGameRound.textContent = result
             score.updateScore(result)
             setTimeout(() => {
                 resetDisplay()
               }, 1000);
+
+            gameRound++
         }
         
         updateScreen()
@@ -199,7 +205,7 @@ const display = (function () {
     }
 
     const resetDisplay = function() {
-        currentPlayer.textContent = ""
+        displayGameRound.textContent = `Round ${gameRound}`
         playGame.resetGame()
         updateScreen()
         playerHandler.showActivePlayer()
@@ -211,6 +217,7 @@ const display = (function () {
             if (!clickedCell) return
             showGame(clickedCell)
         } else if (event.target.className === "restart") {
+            gameRound = 1
             resetDisplay()
             score.resetScore()
         }
