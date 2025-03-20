@@ -9,7 +9,7 @@ body {
     width: 100%;
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 2fr 10fr 1fr;
+    grid-template-rows: 3fr 10fr 1fr;
 }
 
 .header {
@@ -23,6 +23,7 @@ body {
 
 .header-text {
     font-size: clamp(2.5rem, 4.5vw, 5rem);
+    font-weight: 800;
 }
 
 .game-board {
@@ -47,6 +48,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
 }
 
 .player-one, .player-two {
@@ -59,6 +61,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 0.2rem black solid;
+    border-radius: 20%;
+    font-size: max(1.5rem, 4vw);
 }
 
 .player-container {
