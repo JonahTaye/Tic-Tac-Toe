@@ -19,7 +19,7 @@ body {
     width: 100%;
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 3fr 10fr 1fr;
+    grid-template-rows: 4fr 15fr 2fr;
     font-family: "SuperSense";
 }
 
@@ -33,6 +33,7 @@ body {
     text-align: center;
     background-color: #08090A;
     color: #FCEADE;
+    padding: 1rem;
 }
 
 .header-text {
@@ -141,11 +142,25 @@ body {
 .restart {
     font-family: "SuperSense";
     font-size: clamp(1.2rem, 1.5vw, 3rem);
-    font-weight: 700;
+    /* font-weight: 700; */
     padding: 0.2rem 1.5rem;
     border-radius: 0.3rem;
     border: 0.2rem white solid;
     outline: 0.1rem black solid;
+    background-color: #508991;
+    color: #08090A;
+    --size: clamp(10rem, 25vw, 50vw);
+    box-shadow: calc(var(--size) * 0.02) calc(var(--size) * 0.03) calc(var(--size) * 0.02) calc(var(--size) * 0.001) rgba(0, 0, 0, 0.479);
+
+}
+
+.restart:hover {
+    color: #FCEADE
+}
+
+.restart:active {
+    color: #FCEADE;
+    box-shadow: none;
 }
 
 dialog {
