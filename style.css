@@ -78,6 +78,12 @@ body {
     border: 0.2rem black solid;
     border-radius: 20%;
     font-size: max(1.5rem, 4vw);
+    --size: clamp(10rem, 25vw, 50vw);
+    box-shadow: calc(var(--size) * 0.02) calc(var(--size) * 0.03) calc(var(--size) * 0.02) calc(var(--size) * 0.001) rgba(0, 0, 0, 0.479);
+}
+
+.box:active {
+    box-shadow: none;
 }
 
 .player-container {
@@ -138,7 +144,7 @@ dialog {
     padding: 2rem 1rem 1rem;
     width: max(15rem, 30%);
     height: max(10rem, 20%);
-    
+    border-radius: 0.5rem;
 }
 
 form {
