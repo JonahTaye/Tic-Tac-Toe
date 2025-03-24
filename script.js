@@ -217,7 +217,7 @@ const display = (function () {
                 let [row, column] = box.split(",")
                 let boxDisplay = boardContainer.querySelector(`[data-cell-number="${row}-${column}"]`)
                 
-                boxDisplay.style.backgroundColor = "green"
+                boxDisplay.style.backgroundColor = "#47ad47"
             }
         }
     }
@@ -289,10 +289,10 @@ const playerHandler = (function () {
         const playerOneBackground = firstPlayer.querySelector(".player-container")
         const playerTwoBackground = secondPlayer.querySelector(".player-container")
         if (playerOneName === playGame.getActivePlayer()) {
-            playerOneBackground.style.backgroundColor = "green"
+            playerOneBackground.style.backgroundColor = "#47ad47"
             playerTwoBackground.style.backgroundColor = ""
         } else if (playerTwoName === playGame.getActivePlayer()) {
-            playerTwoBackground.style.backgroundColor = "green"
+            playerTwoBackground.style.backgroundColor = "#47ad47"
             playerOneBackground.style.backgroundColor = ""
         }
     }
