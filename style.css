@@ -170,6 +170,7 @@ dialog {
     width: max(15rem, 30%);
     height: max(10rem, 20%);
     border-radius: 0.5rem;
+    background-color: #508991;
 }
 
 form {
@@ -187,6 +188,7 @@ input, form > button {
     border-radius: 0.3rem;
     font-family: "SuperSense";
     font-size: clamp(1.5rem, 2.5vw, 3rem);
+    background-color: #FCEADE;
 }
 
 form > button {
