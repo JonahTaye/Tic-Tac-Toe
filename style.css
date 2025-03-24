@@ -5,11 +5,22 @@
     border: 1px red solid;
 }
 
+@font-face {
+    font-family: "Rebellion squad font";
+    src: url(rebellion_squad_fonts/RebellionSquad-ZpprZ.ttf)
+}
+
+@font-face {
+    font-family: "SuperSense";
+    src: url(rebellion_squad_fonts/SuperSense-lxpBX.ttf)
+}
+
 body {
     width: 100%;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 3fr 10fr 1fr;
+    font-family: "SuperSense";
 }
 
 .header {
@@ -49,6 +60,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 1rem;
+    font-family: "Rebellion squad font";
 }
 
 .player-one, .player-two {
@@ -94,6 +106,10 @@ body {
     font-weight: 500;
 }
 
+.token {
+    font-family: "Rebellion squad font";
+}
+
 .game-round {
     font-size: clamp(1.2rem, 1.5vw, 3rem);
     font-weight: 600;
@@ -104,6 +120,7 @@ body {
 }
 
 .restart {
+    font-family: "SuperSense";
     font-size: clamp(1.2rem, 1.5vw, 3rem);
     font-weight: 700;
     padding: 0.2rem 1.5rem;
