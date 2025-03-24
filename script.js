@@ -83,8 +83,8 @@ const playGame = (function () {
     const playerOne = player()
     const playerTwo = player()
 
-    playerOne.addPlayer("Player-One", "X")
-    playerTwo.addPlayer("Player-Two", "O")
+    playerOne.addPlayer("Player One", "X")
+    playerTwo.addPlayer("Player Two", "O")
 
     let activePlayer = playerOne
     let roundsPlayed = 1
