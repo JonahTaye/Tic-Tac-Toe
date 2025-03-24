@@ -99,9 +99,11 @@ body {
     border: 0.2rem black solid;
     border-radius: 0.5rem;
     text-align: center;
-    background-color: hsl(0, 73%, 69%);
     background-color: #A63D40;
+}
 
+.player-one > .player-container {
+    background-color: #47ad47;
 }
 
 .name, .token, .wins {
