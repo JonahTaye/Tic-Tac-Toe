@@ -169,7 +169,7 @@ const display = (function () {
     const restartBtn = document.querySelector(".restart")
 
     let gameRound = 1
-    displayGameRound.textContent = `Let the games begin`
+    displayGameRound.textContent = `Let's Play`
 
     const updateScreen = function () {
         boardContainer.textContent = ""
