@@ -19,7 +19,7 @@ body {
     width: 100%;
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 2fr 6fr 1fr;
+    grid-template-rows: 1fr 3fr auto;
     font-family: "SuperSense";
 }
 
