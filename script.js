@@ -206,18 +206,18 @@ const display = (function () {
 
         updateScreen()
         playerHandler.showActivePlayer()
-        showWinLine()
+        showWinLine(result)
     }
 
-    const showWinLine = function () {
+    const showWinLine = function (winner) {
         let matchedBox = playGame.getMatchedBox()
         
         if (matchedBox.length > 2) {
             for (let box of matchedBox) {
                 let [row, column] = box.split(",")
                 let boxDisplay = boardContainer.querySelector(`[data-cell-number="${row}-${column}"]`)
-                
-                boxDisplay.style.backgroundColor = "#47ad47"
+                if (winner.includes(playGame.playerOne.name())) boxDisplay.style.backgroundColor = "#47ad47"
+                else boxDisplay.style.backgroundColor = "#A63D40"
             }
         }
     }
@@ -289,11 +289,11 @@ const playerHandler = (function () {
         const playerOneBackground = firstPlayer.querySelector(".player-container")
         const playerTwoBackground = secondPlayer.querySelector(".player-container")
         if (playerOneName === playGame.getActivePlayer()) {
-            playerOneBackground.style.backgroundColor = "#47ad47"
-            playerTwoBackground.style.backgroundColor = ""
+            playerOneBackground.style.borderColor = "#FCEADE"
+            playerTwoBackground.style.borderColor = ""
         } else if (playerTwoName === playGame.getActivePlayer()) {
-            playerTwoBackground.style.backgroundColor = "#47ad47"
-            playerOneBackground.style.backgroundColor = ""
+            playerTwoBackground.style.borderColor = "#FCEADE"
+            playerOneBackground.style.borderColor = ""
         }
     }
 
