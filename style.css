@@ -31,6 +31,8 @@ body {
     font-size: clamp(1.2rem, 1.5vw, 3rem);
     gap: 1rem;
     text-align: center;
+    background-color: #08090A;
+    color: #FCEADE;
 }
 
 .header-text {
@@ -43,6 +45,7 @@ body {
     grid-auto-flow: column;
     grid-template-columns: repeat(3, 1fr);
     padding: 1vw 3vw;
+    background-color: #508991;
 }
 
 .game-content {
@@ -75,7 +78,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.2rem black solid;
+    border: 0.2rem #FCEADE solid;
+    color: #FCEADE;
     border-radius: 20%;
     font-size: max(1.5rem, 4vw);
     --size: clamp(10rem, 25vw, 50vw);
@@ -93,9 +97,11 @@ body {
     gap: 1rem;
     padding: 0.5vw;
     border: 0.2rem black solid;
-    border-radius: 0.3rem;
+    border-radius: 0.5rem;
     text-align: center;
-    background-color: rgb(233, 117, 117);
+    background-color: hsl(0, 73%, 69%);
+    background-color: #A63D40;
+
 }
 
 .name, .token, .wins {
@@ -103,6 +109,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: max(1rem, 4vw);
+    color: #FCEADE;
 }
 
 .name {
