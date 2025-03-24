@@ -201,6 +201,14 @@ form > button {
     background-color: #08090A;
     color: #FCEADE;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: #508991;
 }
