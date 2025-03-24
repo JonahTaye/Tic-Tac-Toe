@@ -178,3 +178,10 @@ form > button {
     font-size: clamp(1.2rem, 1.5vw, 3rem);
 }
 
+.footer {
+    background-color: #08090A;
+    color: #FCEADE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
